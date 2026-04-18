@@ -1,0 +1,41 @@
+---
+import { getCollection } from "astro:content"
+import PageLayout from "@layouts/PageLayout.astro"
+import TopLayout from "@layouts/TopLayout.astro"
+import BottomLayout from "@layouts/BottomLayout.astro"
+import ArrowCard from "@components/ArrowCard"
+import { useTranslations } from "@i18n/ui"
+
+const t = useTranslations("es")
+
+const projects = (await getCollection("projects"))
+  .filter((project) => !project.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+---
+
+<PageLayout
+  title={t("projects.page.title")}
+  description={t("projects.page.description")}
+  lang="es"
+>
+  <TopLayout>
+    <div class="animate">
+      <h1 class="text-3xl font-semibold text-black dark:text-white mt-2">
+        {t("projects.page.title")}
+      </h1>
+      <div class="mt-1">{t("projects.page.description")}</div>
+    </div>
+  </TopLayout>
+  <BottomLayout>
+    <ul class="animate space-y-4">
+      {projects.map((project) => (
+        <li>
+          <ArrowCard
+            entry={project}
+            summaryOverride={project.data.summaryEs ?? project.data.summary}
+          />
+        </li>
+      ))}
+    </ul>
+  </BottomLayout>
+</PageLayout>

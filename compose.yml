@@ -1,0 +1,10 @@
+services:
+  dev:
+    build: .
+    ports:
+      - "4321:4321"
+    volumes:
+      - .:/app            # bind mount: ediciones del host se reflejan en el contenedor
+      - /app/node_modules # volumen anónimo: preserva los node_modules instalados en la imagen
+    environment:
+      - CHOKIDAR_USEPOLLING=true # necesario en Windows para que el hot reload funcione

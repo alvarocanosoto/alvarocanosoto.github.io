@@ -1,0 +1,53 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content"
+import PageLayout from "@layouts/PageLayout.astro"
+import TopLayout from "@layouts/TopLayout.astro"
+import BottomLayout from "@layouts/BottomLayout.astro"
+import ArticleBottomLayout from "@layouts/ArticleBottomLayout.astro"
+
+export async function getStaticPaths() {
+  const projects = await getCollection("projects")
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: project,
+  }))
+}
+
+type Props = CollectionEntry<"projects">
+const project = Astro.props
+const { title, summaryEs, summary } = project.data
+const description = summaryEs ?? summary
+---
+
+<PageLayout title={title} description={description} lang="es">
+  <TopLayout>
+    <div class="animate">
+      <!-- Back to projects -->
+      <a href="/es/projects" class="group w-fit p-1.5 gap-1.5 text-sm flex items-center border rounded hover:bg-black/5 hover:dark:bg-white/10 border-black/15 dark:border-white/20 transition-colors duration-300 ease-in-out">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="stroke-current group-hover:stroke-black group-hover:dark:stroke-white">
+          <line x1="19" y1="12" x2="5" y2="12" class="scale-x-0 group-hover:scale-x-100 translate-x-3 group-hover:translate-x-0 transition-all duration-300 ease-in-out" />
+          <polyline points="12 19 5 12 12 5" class="translate-x-1 group-hover:translate-x-0 transition-all duration-300 ease-in-out" />
+        </svg>
+        <div class="w-full group-hover:text-black group-hover:dark:text-white transition-colors duration-300 ease-in-out">
+          Volver a proyectos
+        </div>
+      </a>
+      <h1 class="text-3xl font-semibold text-black dark:text-white mt-12">
+        {title}
+      </h1>
+      <div class="mt-1">{description}</div>
+      <ul class="flex flex-wrap mt-3 gap-1">
+        {project.data.tags.map((tag) => (
+          <li class="text-xs uppercase py-0.5 px-2 rounded bg-black/5 dark:bg-white/20 text-black/75 dark:text-white/75">
+            {tag}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </TopLayout>
+  <BottomLayout>
+    <div class="animate">
+      <ArticleBottomLayout entry={project} />
+    </div>
+  </BottomLayout>
+</PageLayout>

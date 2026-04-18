@@ -3,7 +3,9 @@ import { getCollection } from "astro:content"
 import PageLayout from "@layouts/PageLayout.astro"
 import TopLayout from "@layouts/TopLayout.astro"
 import BottomLayout from "@layouts/BottomLayout.astro"
-import { WORK } from "@consts"
+import { useTranslations } from "@i18n/ui"
+
+const t = useTranslations("es")
 
 const collection = await getCollection("work")
 
@@ -20,16 +22,16 @@ const work = await Promise.all(
 
 function formatWorkDate(input: Date | string) {
   if (typeof input === "string") return input
-  const month = input.toLocaleDateString("en-US", { month: "short" })
+  const month = input.toLocaleDateString("es-ES", { month: "short" })
   const year = new Date(input).getFullYear()
   return `${month} ${year}`
 }
 ---
 
-<PageLayout title={WORK.TITLE} description={WORK.DESCRIPTION} lang="en">
+<PageLayout title={t("work.page.title")} description={t("work.page.description")} lang="es">
   <TopLayout>
     <div class="animate page-heading">
-      {WORK.TITLE}
+      {t("work.page.title")}
     </div>
   </TopLayout>
   <BottomLayout>
