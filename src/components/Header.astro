@@ -9,8 +9,8 @@ const isSpanish = pathname.startsWith("/es")
 const strippedPathname = isSpanish ? pathname.replace(/^\/es/, "") || "/" : pathname
 const subpath = strippedPathname.match(/[^/]+/g)
 const langPrefix = isSpanish ? "/es" : ""
-const langToggleHref = getLocalizedPath(pathname, isSpanish ? "en" : "es")
-const langToggleLabel = isSpanish ? "EN" : "ES"
+const esHref = getLocalizedPath(pathname, "es")
+const enHref = getLocalizedPath(pathname, "en")
 ---
 
 <header id="header" class="fixed top-0 w-full h-16 z-50">
@@ -52,21 +52,29 @@ const langToggleLabel = isSpanish ? "EN" : "ES"
       <div class="buttons absolute right-0 top-1/2 -translate-y-1/2 flex gap-1">
 
         <!-- Language toggle -->
-        <a
-          href={langToggleHref}
-          aria-label={`Switch to ${isSpanish ? "English" : "Spanish"}`}
-          class={cn(
-            "hidden md:flex",
-            "h-9 rounded-full px-3 items-center justify-center",
-            "bg-transparent hover:bg-black/5 dark:hover:bg-white/20",
-            "text-current hover:text-black dark:hover:text-white",
-            "border border-black/10 dark:border-white/25",
-            "text-sm font-semibold",
-            "transition-colors duration-300 ease-in-out"
-          )}
-        >
-          {langToggleLabel}
-        </a>
+        <div class="hidden md:flex h-9 rounded-full px-3 items-center justify-center gap-1.5 border border-black/10 dark:border-white/25">
+          <a
+            href={esHref}
+            aria-label="Ver en español"
+            class={cn(
+              "text-sm font-semibold transition-colors duration-200",
+              isSpanish
+                ? "text-black dark:text-white pointer-events-none"
+                : "text-black/35 dark:text-white/35 hover:text-black dark:hover:text-white"
+            )}
+          >ES</a>
+          <span class="text-black/20 dark:text-white/20 text-sm select-none">/</span>
+          <a
+            href={enHref}
+            aria-label="Switch to English"
+            class={cn(
+              "text-sm font-semibold transition-colors duration-200",
+              !isSpanish
+                ? "text-black dark:text-white pointer-events-none"
+                : "text-black/35 dark:text-white/35 hover:text-black dark:hover:text-white"
+            )}
+          >EN</a>
+        </div>
 
         <!-- Search -->
         <a

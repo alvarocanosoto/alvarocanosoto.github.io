@@ -1,8 +1,8 @@
 ---
 company: "Barcelona Supercomputing Center"
-role: "Research Engineer"
-dateStart: "01/01/2023"
+role: "Research Engineer in Digital Twins"
+dateStart: "09/01/2025"
 dateEnd: "Present"
 ---
 
-Designing and building digital twins, data pipelines, and AI systems for industrial and defense applications. Working on sensor-to-intelligence architectures integrating real-time data ingestion, ML inference, and geospatial visualization. Contributing to international research projects under defense-grade requirements.
+Developing digital twins systems and performing software engineering tasks for defense-related projects within the Dual-Use Technologies group.
