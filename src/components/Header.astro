@@ -1,16 +1,24 @@
 ---
 import { SITE, LINKS } from "@consts"
 import { cn } from "@lib/utils"
-import { getLocalizedPath } from "@i18n/ui"
+import { getLocalizedPath, getLangFromUrl, useTranslations } from "@i18n/ui"
 import Container from "@components/Container.astro"
 
 const { pathname } = Astro.url
 const isSpanish = pathname.startsWith("/es")
+const lang = getLangFromUrl(Astro.url)
+const t = useTranslations(lang)
 const strippedPathname = isSpanish ? pathname.replace(/^\/es/, "") || "/" : pathname
 const subpath = strippedPathname.match(/[^/]+/g)
 const langPrefix = isSpanish ? "/es" : ""
 const esHref = getLocalizedPath(pathname, "es")
 const enHref = getLocalizedPath(pathname, "en")
+
+const navLabels: Record<string, string> = {
+  "/": t("nav.home"),
+  "/work": t("nav.work"),
+  "/projects": t("nav.projects"),
+}
 ---
 
 <header id="header" class="fixed top-0 w-full h-16 z-50">
@@ -42,7 +50,7 @@ const enHref = getLocalizedPath(pathname, "en")
                   : "hover:bg-black/5 dark:hover:bg-white/20 hover:text-black dark:hover:text-white"
               )}
             >
-              {LINK.TEXT}
+              {navLabels[LINK.HREF] ?? LINK.TEXT}
             </a>
           ))}
         </nav>
@@ -75,25 +83,6 @@ const enHref = getLocalizedPath(pathname, "en")
             )}
           >EN</a>
         </div>
-
-        <!-- Search -->
-        <a
-          href={`${langPrefix}/search`}
-          aria-label={`Search projects on ${SITE.TITLE}`}
-          class={cn(
-            "hidden md:flex",
-            "size-9 rounded-full p-2 items-center justify-center",
-            "bg-transparent hover:bg-black/5 dark:hover:bg-white/20",
-            "stroke-current hover:stroke-black hover:dark:stroke-white",
-            "border border-black/10 dark:border-white/25",
-            "transition-colors duration-300 ease-in-out",
-            strippedPathname === "/search" ? "pointer-events-none bg-black dark:bg-white text-white dark:text-black" : ""
-          )}
-        >
-          <svg class="size-full">
-            <use href="/ui.svg#search"></use>
-          </svg>
-        </a>
 
         <!-- Theme toggle -->
         <button

@@ -3,7 +3,7 @@ title: "Maritime Sentinel Platform"
 summary: "End-to-end data platform for maritime surveillance — real-time AIS ingestion, anomaly detection, trajectory forecasting, and non-cooperative vessel identification."
 summaryEs: "Plataforma de datos end-to-end para vigilancia marítima — ingesta AIS en tiempo real, detección de anomalías, predicción de trayectorias e identificación de embarcaciones no cooperativas."
 date: "Jan 1 2024"
-draft: false
+draft: true
 tags:
   - Data Engineering
   - ML

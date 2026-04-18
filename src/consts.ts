@@ -31,7 +31,7 @@ export const SEARCH: Page = {
   DESCRIPTION: "Search all projects by keyword.",
 }
 
-// Links — Blog intentionally excluded
+// Links — Blog and Projects intentionally excluded for now
 export const LINKS: Links = [
   {
     TEXT: "Home",
@@ -40,10 +40,6 @@ export const LINKS: Links = [
   {
     TEXT: "Work",
     HREF: "/work",
-  },
-  {
-    TEXT: "Projects",
-    HREF: "/projects",
   },
 ]
 

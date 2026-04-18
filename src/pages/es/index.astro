@@ -133,7 +133,8 @@ const skillCategories = [
         </div>
       </section>
 
-      <!-- Proyectos Recientes -->
+      <!-- Proyectos Recientes — solo si hay proyectos publicados -->
+      {projects.length > 0 && (
       <section class="animate">
         <div class="space-y-4">
           <div class="flex justify-between">
@@ -158,6 +159,7 @@ const skillCategories = [
           </ul>
         </div>
       </section>
+      )}
 
       <!-- Contacto -->
       <section class="animate">
